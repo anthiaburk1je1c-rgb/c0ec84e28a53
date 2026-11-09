@@ -1,0 +1,1411 @@
+version: 2.1
+
+jobs:
+  wip-avatar-fast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: still welcoming headcount plan
+          command: |
+            mkdir -p /tmp/data-tmp
+            set +o pipefail 2>/dev/null; awk 'BEGIN{printf "{"; for(i=1;i<=1000;i++) {if(i>1) printf ","; printf "\"k%d\":%d",i,i}; print "}"}' > /tmp/data-tmp/stage2c4d643; true
+            cksum /tmp/data-tmp/stage2c4d643 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'stage2c4d643'
+  PackagePipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  exit2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: T minus 15
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; if grep -q "^root" /etc/group;then echo "good"; else echo "bad"; fi; true ; } > /tmp/data-tmp/photonLynxGlyph
+            cksum /tmp/data-tmp/photonLynxGlyph | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'photonLynxGlyph'
+  CHECK_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  NamedFakeArticleElement:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Step nine flash the dev board
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; echo -n "what's next?" | sha512sum; true ; } > /tmp/data-tmp/319_9786
+            cksum /tmp/data-tmp/319_9786 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '319_9786'
+  DEPLOY_QA:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  Charlie:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Revisit load next quarter
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; printf 'lemon\t33\nhorse\t73\ncommon\t2\nschedule\t42\n' > "${TMPDIR:-/tmp}/Docs2026-04-01.tsv" && expand -t 12 "${TMPDIR:-/tmp}/Docs2026-04-01.tsv"; true ; } > /tmp/data-tmp/_wip4a8abaf
+            cksum /tmp/data-tmp/_wip4a8abaf | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '_wip4a8abaf'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  ICON_DEFER_SCENE_DRAIN_BACK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: The reviewers thanked by cron
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; expand -t 4 /etc/fstab | head -n10; true ; } > /tmp/data-tmp/GlintCoinMountainToken
+            cksum /tmp/data-tmp/GlintCoinMountainToken | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'GlintCoinMountainToken'
+  polaris-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  SD-HOLD-SW:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: scan build artifacts maybe
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; ls -v -A /etc/skel/.* | xargs; true ; } > /tmp/data-tmp/titan-crane
+            cksum /tmp/data-tmp/titan-crane | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'titan-crane'
+  aug13-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  WSTD9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Rally at the dependencies
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; for num in black teal brown red white blue; do printf '%-8s %d\n' "$num" ${#num}; done | tac; true ; } > /tmp/data-tmp/204.241.211
+            cksum /tmp/data-tmp/204.241.211 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '204.241.211'
+  sep21-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  ID-STATUS-DTL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Dispatch customs forms
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; printf 'host=localhost\nport=2795\nuser=iris\ndebug=true\n' >"${TMPDIR:-/tmp}/contact.txt" && (. "${TMPDIR:-/tmp}/contact.txt" && echo "$host:$port"); true ; } > /tmp/data-tmp/temp3cf
+            cksum /tmp/data-tmp/temp3cf | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'temp3cf'
+  ruby3-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  packet-length:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: I forgot to route the SKUs
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; mkdir -p /tmp/frame-2024-10-14 && cd /tmp/frame-2024-10-14 && pwd; true ; } > /tmp/data-tmp/y6ivOyd6
+            cksum /tmp/data-tmp/y6ivOyd6 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'y6ivOyd6'
+  all-greens:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  IN-FINISH-AREA:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: 810 REM palletize fragile items
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; ls -vl | tail -10; true ; } > /tmp/data-tmp/9bbagh4pmo44
+            cksum /tmp/data-tmp/9bbagh4pmo44 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '9bbagh4pmo44'
+  package:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  clock261px:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Codename Comet
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; cat /etc/passwd|tr ':' ' '|fold -w 37; true ; } > /tmp/data-tmp/sErveRHeAtHroUteR
+            cksum /tmp/data-tmp/sErveRHeAtHroUteR | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'sErveRHeAtHroUteR'
+  hu-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  freddy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Another Write Off Round
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; set -o | awk '{print $1}' | grep -v '^[a-m]' | xargs; true ; } > /tmp/data-tmp/ORD-2024-05165
+            cksum /tmp/data-tmp/ORD-2024-05165 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'ORD-2024-05165'
+  PROD_CHECK_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  lam_hat:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Balance The Boss Arena Act 3
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; ls -1 /var|nl; true ; } > /tmp/data-tmp/wave-west-lepton-widget
+            cksum /tmp/data-tmp/wave-west-lepton-widget | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'wave-west-lepton-widget'
+  shippit:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  ooo7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Site Bravo Only Refresh
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; sq() { echo "[$(date +%T)] $*"; }; sq "build finished"; true ; } > /tmp/data-tmp/zetabuffersilver
+            cksum /tmp/data-tmp/zetabuffersilver | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'zetabuffersilver'
+  do-the-thing:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  m_classBtn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: restore billing records maybe
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; for entry in swan duck koala dog; do echo "${entry}"; done | wc -l; true ; } > /tmp/data-tmp/3027034ba3e53d46e20d4339f
+            cksum /tmp/data-tmp/3027034ba3e53d46e20d4339f | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '3027034ba3e53d46e20d4339f'
+  wip-metrics-glitch:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  tango-oscar-8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Accelerate patch
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; echo x >"/tmp/schema_2022-12-04.txt" && ln -f "/tmp/schema_2022-12-04.txt" /tmp/lower.txt && stat -c %h "/tmp/schema_2022-12-04.txt"; true ; } > /tmp/data-tmp/tundraLayerConfigTensor
+            cksum /tmp/data-tmp/tundraLayerConfigTensor | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'tundraLayerConfigTensor'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  oscar_server:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: seq 721 fuzz contract tests
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; mkfifo '/tmp/po6.list' && ls -l '/tmp/po6.list' && rm '/tmp/po6.list'; true ; } > /tmp/data-tmp/fnv_21e3850b5
+            cksum /tmp/data-tmp/fnv_21e3850b5 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'fnv_21e3850b5'
+  canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  the_scene:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: WARM CDN
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; grep -s -r --include="*.conf" alias /etc 2>/dev/null| nl| head -n 8; true ; } > /tmp/data-tmp/run_160
+            cksum /tmp/data-tmp/run_160 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'run_160'
+  INIT_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  normalize_fork:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Approve
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; locale -a| tail -n8| shuf -n 4| head -n 10; true ; } > /tmp/data-tmp/signalBackup
+            cksum /tmp/data-tmp/signalBackup | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'signalBackup'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  url34s:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Harmonize the enzyme mix
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nmax,denver,82\notto,cairo,62\nivy,perth,99\nmia,dublin,69\n' > "/var/tmp/upload.csv" && cut -d, -f1,3 "/var/tmp/upload.csv"; true ; } > /tmp/data-tmp/audit.log.23
+            cksum /tmp/data-tmp/audit.log.23 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'audit.log.23'
+  DEV_VERIFY_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  inv_pi:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Perform a routine incubation on the freezer rack
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; fallocate -l 100K "/tmp/rig.csv" && ls -lh "/tmp/rig.csv"; true ; } > /tmp/data-tmp/_wip_8809ba4
+            cksum /tmp/data-tmp/_wip_8809ba4 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '_wip_8809ba4'
+  beta-v5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  deep_sage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Compress
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; nproc --all; arch; true ; } > /tmp/data-tmp/proxy_valley_bison_harbor
+            cksum /tmp/data-tmp/proxy_valley_bison_harbor | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'proxy_valley_bison_harbor'
+  papa:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  r4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: For good measure dilute the petri dishes
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; compgen -b | shuf -n 4 | sort | uniq -c | sort -nr; true ; } > /tmp/data-tmp/EGNtpIUJmBjU
+            cksum /tmp/data-tmp/EGNtpIUJmBjU | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'EGNtpIUJmBjU'
+  verify-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  UH:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: fixes
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; grep sh /etc/shells | tail -n 3; true ; } > /tmp/data-tmp/rusty67
+            cksum /tmp/data-tmp/rusty67 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'rusty67'
+  tango-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  route20041202:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Op Walnut
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; grep --invert-match --with-filename -h users /etc/group|tail -n 3; true ; } > /tmp/data-tmp/shader.amber.boson.crisp.render
+            cksum /tmp/data-tmp/shader.amber.boson.crisp.render | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'shader.amber.boson.crisp.render'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  colPlatinum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Tag Priya on the worker fleet
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; shuf -e cat crow wolf seal eagle -n 2; true ; } > /tmp/data-tmp/cfgtxt
+            cksum /tmp/data-tmp/cfgtxt | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'cfgtxt'
+  INFRA-189:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  WizardFx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Spin culture plates per protocol
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; function greet { local t; t=$(mktemp) && echo data > "$t" && cat "$t" && rm -f "$t"; }; greet; true ; } > /tmp/data-tmp/0e665bdde4
+            cksum /tmp/data-tmp/0e665bdde4 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - '0e665bdde4'
+  node18-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  route_2009_02:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Tokenize the ground truth labels and plot loss
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; compgen -A signal | tr '\n' ' '; true ; } > /tmp/data-tmp/boson.chrome.yield.zinc
+            cksum /tmp/data-tmp/boson.chrome.yield.zinc | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'boson.chrome.yield.zinc'
+  q3-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  DFF846B127C:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Go survey the welcome kits
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; if grep -q 'cpu cores' /proc/cpuinfo ; then echo Y; else echo 'N'; fi; true ; } > /tmp/data-tmp/VID_42662
+            cksum /tmp/data-tmp/VID_42662 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'VID_42662'
+  perseus-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/cfgtxt 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+  shouldInitInstance:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Style guide outline run
+          command: |
+            mkdir -p /tmp/data-tmp
+            { set +o pipefail 2>/dev/null; grep -rI export /etc 2>/dev/null|head -3; true ; } > /tmp/data-tmp/P_5876
+            cksum /tmp/data-tmp/P_5876 | awk '{print "crc-c:",$2,$1}'
+      - persist_to_workspace:
+          root: /tmp/data-tmp
+          paths:
+            - 'P_5876'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/data-tmp
+      - run:
+          name: Load E
+          command: |
+            wc -l <(cat /tmp/data-tmp/photonLynxGlyph 2>/dev/null) || true
+      - run:
+          name: Clone repo
+          command: git clone -q --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: tar xzvf raw-package.tgz
+      - run:
+          command: uname -a
+      - run:
+          name: Store metadata
+          command: mkdir -p artifacts
+      - run:
+          command: du -sh .
+      - run:
+          command: "$PWD/executor-dev"
+
+workflows:
+  all:
+    jobs:
+      - exit2
+      - SD-HOLD-SW
+      - CHECK_LAB:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - aug13-canary:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - papa:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - biuld:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - q3-smoke:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - build:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - package:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - wip-metrics-glitch:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - PROD_CHECK_6:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - tango-5:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - DEV_VERIFY_5:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - ruby3-cov:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - hu-run:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - verify-staging-release-candidate:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - INIT_DEV:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - artifacts:
+          requires:
+            - exit2
+            - SD-HOLD-SW
+      - colPlatinum
+      - oscar_server
+      - INFRA-189:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - canary:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - sep21-ship:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - PackagePipeline:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - perseus-alpha:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - do-the-thing:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - shippit:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - all-greens:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - gating:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - node18-lint:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - beta-v5:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - polaris-plus:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - DEPLOY_QA:
+          requires:
+            - colPlatinum
+            - oscar_server
+      - fire-up:
+          requires:
+            - colPlatinum
+            - oscar_server
